@@ -24,3 +24,5 @@ As such, the table files are literally just lua files with assignments.
 As the maximum size of n-graphs must be manually specified,
 IT IS STRONGLY RECOMMENDED THAT YOU INCLUDE THE MAXIMUM SIZE IN A COMMENT
 AT THE VERY TOP OF YOUR TABLE FILE.
+
+An example table for rot13 is included for reference.
