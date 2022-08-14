@@ -1,0 +1,61 @@
+#!/usr/bin/env lua
+
+function nconv(tbl, max, inp)
+	local tmp = inp
+	local n = max
+	local out
+	for i = 0, max do
+		if tbl[tmp] ~= nil then
+			out = tbl[tmp]
+			return out, n
+		end
+
+		if n == 1 then
+			break
+		end
+		-- No decrement operator :(
+		n = n - 1
+		tmp = string.sub(tmp, 1, n)
+	end
+	return inp, n
+end
+
+function main(argv)
+	if argv[2] == nil then
+		print("Usage: enconv <table> <max>\n"
+		.. "<table> = The input table\n"
+		.. "<max> = maximum n-graph size\n"
+		.. "Text is taken from stdin\n")
+		return
+	end
+
+	local tbl = require(argv[1])
+	local max = tonumber(argv[2])
+
+	local inp = io.tmpfile()
+	inp:write(io.stdin:read("*all"))
+	inp:seek("set", 0)
+	io.input(inp)
+
+	local buf = "s"
+	local res = ""
+	local tmp = ""
+	local n = 0
+	local nxt = 0
+
+	while buf ~= nil do
+		nxt = (inp:seek()) + 1
+		buf = io.read(max)
+		if buf == nil then break end
+		tmp, n = nconv(tbl, max, buf)
+		res = res..tmp
+		if n ~= max then
+			inp:seek("set", nxt)
+		end
+	end
+	io.write(res, "\n")
+	inp:close()
+	return 0
+end
+
+main(arg)
