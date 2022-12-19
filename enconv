@@ -17,7 +17,7 @@ function nconv(tbl, max, inp)
 		n = n - 1
 		tmp = string.sub(tmp, 1, n)
 	end
-	return inp, n
+	return tmp, n
 end
 
 function main(argv)
